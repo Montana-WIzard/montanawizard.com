@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Montana Wizard Podcast</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #0f1a14;
+      color: #f4f4f4;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3d2b, #0f1a14);
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem 1rem;
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    h2 {
+      border-left: 4px solid #4caf50;
+      padding-left: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .episodes li {
+      margin-bottom: 0.5rem;
+    }
+
+    a {
+      color: #4caf50;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: #0b130f;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🧙‍♂️ Montana Wizard Podcast</h1>
+    <p>Tales, talk, and a little magic from Big Sky Country</p>
+  </header>
+
+  <main>
+
+    <section>
+      <h2>About the Podcast</h2>
+      <p>
+        The Montana Wizard Podcast explores stories, ideas, and conversations
+        from the wilds of Montana and beyond. Expect thoughtful discussion,
+        offbeat humor, and a touch of wizardry.
+      </p>
+    </section>
+
+    <section>
+      <h2>Latest Episodes</h2>
+      <ul class="episodes">
+        <li>Episode 1 – The Wizard Arrives</li>
+        <li>Episode 2 – Magic in the Mountains</li>
+        <li>Episode 3 – Campfire Philosophy</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Listen & Subscribe</h2>
+      <p>
+        Find the podcast on:
+        <br />
+        <a href="#">Spotify</a> ·
+        <a href="#">Apple Podcasts</a> ·
+        <a href="#">YouTube</a>
+      </p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>
+        Questions, stories, or spell suggestions?<br />
+        Email: <a href="mailto:contact@montanawizardpodcast.com">contact@montanawizardpodcast.com</a>
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    © 2026 Montana Wizard Podcast · All Rights Reserved
+  </footer>
+
+</body>
+</html>
