@@ -66,6 +66,46 @@
       font-size: 0.9rem;
       opacity: 0.8;
     }
+    .player {
+  background-color: #0b130f;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.player video {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.controls button {
+  font-size: 1.5rem;
+  padding: 0.4rem 0.8rem;
+  background-color: #1e3d2b;
+  color: #f4f4f4;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.controls input {
+  width: 80px;
+  padding: 0.4rem;
+  text-align: center;
+  font-size: 1rem;
+}
   </style>
 </head>
 
@@ -96,6 +136,29 @@
     </section>
 
     <section>
+      <h2>Watch the Podcast</h2>
+
+      <div class="player">
+        <video id="videoPlayer" controls>
+          <source src="episodes/0.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+
+      <div class="controls">
+        <button id="prevBtn">◀</button>
+
+        <label>
+          Episode
+          <input type="number" id="episodeInput" value="0" min="0">
+        </label>
+
+        <button id="nextBtn">▶</button>
+      </div>
+    </div>
+  </section>
+
+
+    <section>
       <h2>Listen & Subscribe</h2>
       <p>
         Find the podcast on:
@@ -119,5 +182,43 @@
     © 2026 Montana Wizard Podcast · All Rights Reserved
   </footer>
 
+  <script>
+  const videoPlayer = document.getElementById("videoPlayer");
+  const episodeInput = document.getElementById("episodeInput");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  const maxEpisode = 1; // 👈 CHANGE THIS when you add episodes
+  let currentEpisode = 0;
+
+  function loadEpisode(num) {
+    if (num < 0) num = 0;
+    if (num > maxEpisode) num = maxEpisode;
+
+    currentEpisode = num;
+    episodeInput.value = currentEpisode;
+
+    videoPlayer.src = `episodes/${currentEpisode}.mp4`;
+    videoPlayer.load();
+
+    prevBtn.disabled = currentEpisode === 0;
+    nextBtn.disabled = currentEpisode === maxEpisode;
+  }
+
+  prevBtn.addEventListener("click", () => {
+    loadEpisode(currentEpisode - 1);
+  });
+
+  nextBtn.addEventListener("click", () => {
+    loadEpisode(currentEpisode + 1);
+  });
+
+  episodeInput.addEventListener("change", () => {
+    loadEpisode(parseInt(episodeInput.value, 10));
+  });
+
+  // Initial state
+  loadEpisode(0);
+</script>
 </body>
 </html>
