@@ -164,6 +164,11 @@
           allowfullscreen>
         </iframe>
 
+        <div id="comingSoon" style="display:none; text-align:center; padding:2rem; background:#0b130f; border-radius:6px;">
+          <h3>🧙 Episode Coming Soon</h3>
+          <p>This episode isn’t public yet. Check back soon!</p>
+        </div>
+
       <div class="controls">
         <button id="prevBtn">◀</button>
 
@@ -202,14 +207,16 @@
     © 2026 Montana Wizard Podcast · All Rights Reserved
   </footer>
 
+  <script src="https://www.youtube.com/iframe_api"></script>
   <script>
-  const videoPlayer = document.getElementById("videoPlayer");
+  let player;
+  let videos = [];
+  let currentEpisode = 0;
+
   const episodeInput = document.getElementById("episodeInput");
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
-
-  let videos = [];
-  let currentEpisode = 0;
+  const comingSoon = document.getElementById("comingSoon");
 
   function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -224,45 +231,55 @@
 
     currentEpisode = num;
     episodeInput.value = currentEpisode;
+    comingSoon.style.display = "none";
 
-    const videoId = videos[currentEpisode];
-
-    videoPlayer.src = `https://www.youtube.com/embed/${videoId}?rel=0`;
+    player.loadVideoById(videos[currentEpisode]);
 
     prevBtn.disabled = currentEpisode === 0;
     nextBtn.disabled = currentEpisode === videos.length - 1;
   }
 
-  prevBtn.addEventListener("click", () => {
-    loadEpisode(currentEpisode - 1);
-  });
+  function onPlayerReady() {
+    loadEpisode(0);
+  }
 
-  nextBtn.addEventListener("click", () => {
-    loadEpisode(currentEpisode + 1);
-  });
+  function onPlayerError(event) {
+    // Error codes:
+    // 2 – invalid ID
+    // 5 – HTML5 error
+    // 100 – not found
+    // 101 / 150 – private or not embeddable
 
-  episodeInput.addEventListener("change", () => {
-    loadEpisode(parseInt(episodeInput.value, 10));
-  });
+    if ([100, 101, 150].includes(event.data)) {
+      comingSoon.style.display = "block";
+      player.stopVideo();
+    }
+  }
 
-  // Load episodes from txt file
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player("videoPlayer", {
+      height: "450",
+      width: "100%",
+      events: {
+        onReady: onPlayerReady,
+        onError: onPlayerError
+      }
+    });
+  }
+
   fetch("episodes.txt")
     .then(res => res.text())
     .then(text => {
       videos = text
         .split("\n")
-        .map(line => line.trim())
+        .map(v => v.trim())
         .filter(Boolean);
 
       shuffle(videos);
-
       episodeInput.max = videos.length - 1;
-      loadEpisode(0);
-    })
-    .catch(err => {
-      console.error("Failed to load episodes.txt", err);
     });
 </script>
+
 
 </body>
 </html>
