@@ -119,10 +119,37 @@
   height: 80px;
 }
 
+.ribbon-container {
+ width: 150px;
+ height: 150px;
+ position: fixed; /* Keep it at the top of the page */
+ top: 0;
+ right: 0;
+ overflow: hidden; /* Hide the parts of the ribbon sticking out */
+ z-index: 999;
+}
+
+.ribbon {
+ background: #ff4757;
+ color: white;
+ text-align: center;
+ padding: 10px 0;
+ width: 200px; /* Longer than the container to cover the corner */
+ position: absolute;
+ top: 30px;
+ right: -50px;
+ transform: rotate(45deg);
+ font-weight: bold;
+ box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
   </style>
 </head>
 
 <body>
+  <div class="ribbon-container">
+    <div class="ribbon">NEW RELEASE</div>
+  </div>
 
   <header>
     <h1 class="site-title">
