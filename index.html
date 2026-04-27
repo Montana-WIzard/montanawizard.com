@@ -120,41 +120,73 @@
 }
 
 .ribbon-container {
- width: 150px;
- height: 150px;
- position: fixed; /* Keep it at the top of the page */
- top: 0;
- right: 0;
- overflow: hidden; /* Hide the parts of the ribbon sticking out */
- z-index: 999;
+  width: 150px;
+  height: 150px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: 999;
 }
 
 .ribbon {
- background: #ff4757;
- color: white;
- text-align: center;
- padding: 10px 0;
- width: 200px; /* Longer than the container to cover the corner */
- position: absolute;
- top: 30px;
- right: -50px;
- transform: rotate(45deg);
- font-weight: bold;
- box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background: #ff4757;
+  color: white;
+  width: 200px;
+  height: 40px;
+
+  position: absolute;
+  top: 30px;
+  right: -50px;
+
+  transform: rotate(45deg);
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 
   display: flex;
-  align-items: center;    
+  align-items: center;
   justify-content: center;
 
+  text-decoration: none;
+  cursor: pointer;
 }
+
+.ribbon:hover {
+  background: #ff6b81;
+}
+
+/* Text rotation setup */
+.text {
+  position: absolute;
+  animation: fadeRotate 6s infinite;
+  white-space: nowrap;
+}
+
+.text-2 {
+  animation-delay: 3s;
+}
+
+/* Animation */
+@keyframes fadeRotate {
+  0%   { opacity: 0; transform: translateY(5px); }
+  10%  { opacity: 1; transform: translateY(0); }
+  40%  { opacity: 1; }
+  50%  { opacity: 0; transform: translateY(-5px); }
+  100% { opacity: 0; }
+}
+``
 
   </style>
 </head>
 
 <body>
   <div class="ribbon-container">
-    <div class="ribbon">NEW RELEASE</div>
+    <a href="https://example.com/release-notes" class="ribbon">
+      <span class="text text-1">NEW RELEASE</span>
+      <span class="text text-2">VIEW DETAILS</span>
+    </a>
   </div>
+
 
   <header>
     <h1 class="site-title">
