@@ -146,18 +146,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  text-decoration: none;
-  cursor: pointer;
 }
 
-.ribbon:hover {
-  background: #ff6b81;
-}
-
-/* Text rotation setup */
-.text {
+/* Links fill the ribbon */
+.ribbon a {
   position: absolute;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  pointer-events: none; /* disabled by default */
+}
+
+/* Text animation */
+.text {
   animation: fadeRotate 6s infinite;
   white-space: nowrap;
 }
@@ -166,26 +167,47 @@
   animation-delay: 3s;
 }
 
-/* Animation */
+/* Enable clicking only when visible */
 @keyframes fadeRotate {
-  0%   { opacity: 0; transform: translateY(5px); }
-  10%  { opacity: 1; transform: translateY(0); }
-  40%  { opacity: 1; }
-  50%  { opacity: 0; transform: translateY(-5px); }
-  100% { opacity: 0; }
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+    pointer-events: none;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  40% {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+  }
+  100% {
+    opacity: 0;
+    pointer-events: none;
+  }
 }
-``
+
 
   </style>
 </head>
 
 <body>
   <div class="ribbon-container">
-    <a href="https://example.com/release-notes" class="ribbon">
-      <span class="text text-1">NEW RELEASE</span>
-      <span class="text text-2">VIEW DETAILS</span>
-    </a>
-  </div>
+  https://example.com/releases
+    <span class="text text-1">NEW RELEASE</span>
+  </a>
+
+  https://example.com/details
+    <span class="text text-2">VIEW DETAILS</span>
+  </a>
+</div>
 
 
   <header>
