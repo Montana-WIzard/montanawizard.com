@@ -129,46 +129,46 @@
   z-index: 999;
 }
 
-.ribbon {
-  background: #ff4757;
-  color: white;
-  width: 200px;
-  height: 40px;
+.top-ribbon {
+  position: fixed;
+  top: 0;
+  left: 0;
 
-  position: absolute;
-  top: 30px;
-  right: -50px;
+  width: 100%;
+  height: 48px;
 
-  transform: rotate(45deg);
-  font-weight: bold;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background: linear-gradient(135deg, #ff4757, #ff6b81);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  z-index: 9999;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  overflow: hidden;
 }
 
-/* Links fill the ribbon */
-.ribbon a {
+/* Shared link style */
+.top-ribbon a {
   position: absolute;
   color: white;
   text-decoration: none;
   font-weight: bold;
-  pointer-events: none; /* disabled by default */
+  font-size: 16px;
+  letter-spacing: 1px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: rotateText 6s infinite;
 }
 
-/* Text animation */
-.text {
-  animation: fadeRotate 6s infinite;
-  white-space: nowrap;
-}
-
-.text-2 {
+/* Second item delayed */
+.top-ribbon .item-2 {
   animation-delay: 3s;
 }
 
-/* Enable clicking only when visible */
-@keyframes fadeRotate {
+/* Make link clickable only when visible */
+@keyframes rotateText {
   0% {
     opacity: 0;
     transform: translateY(6px);
@@ -194,20 +194,27 @@
   }
 }
 
+/* Optional hover effect */
+.top-ribbon a:hover {
+  text-decoration: underline;
+}
 
   </style>
 </head>
 
 <body>
-  <div class="ribbon-container">
-  https://www.youtube.com/@MontanaWizard
-    <span class="text text-1">NEW RELEASE</span>
-  </a>
+  <body>
+  <div class="top-ribbon">
+    <a href="https://www.youtube.com/@MontanaWizard" class="item item-1">
+      NEW RELEASE
+    </a>
 
-  https://www.mountainwizardllc.com
-    <span class="text text-2">Mountain Wizard</span>
-  </a>
-</div>
+    <a href="https://www.mountainwizardllc.com" class="item item-2">
+      Mountain Wizard
+    </a>
+  </div>
+</body>
+``
 
 
   <header>
