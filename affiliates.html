@@ -1,230 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Affiliates — Montana Stream</title>
-  <link rel="stylesheet" href="css/style.css" />
-
-  <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Montana Wizard Podcast</title>
-  <link rel="icon" href="../images/MontanaWizard.png" type="image/png" />
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background-color: #0f1a14;
-      color: #f4f4f4;
-      line-height: 1.6;
-    }
-
-    header {
-      background: linear-gradient(135deg, #1e3d2b, #0f1a14);
-      padding: 3rem 1rem;
-      text-align: center;
-    }
-
-    header h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      opacity: 0.9;
-    }
-
-    main {
-      max-width: 900px;
-      margin: auto;
-      padding: 2rem 1rem;
-    }
-
-    section {
-      margin-bottom: 2.5rem;
-    }
-
-    h2 {
-      border-left: 4px solid #4caf50;
-      padding-left: 0.75rem;
-      margin-bottom: 1rem;
-    }
-
-    .episodes li {
-      margin-bottom: 0.5rem;
-    }
-
-    a {
-      color: #4caf50;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      background-color: #0b130f;
-      font-size: 0.9rem;
-      opacity: 0.8;
-    }
-    .player {
-  background-color: #0b130f;
-  padding: 1.5rem;
-  border-radius: 8px;
-}
-
-.player video {
-  width: 100%;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-}
-
-.controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.controls button {
-  font-size: 1.5rem;
-  padding: 0.4rem 0.8rem;
-  background-color: #1e3d2b;
-  color: #f4f4f4;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.controls button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.controls input {
-  width: 80px;
-  padding: 0.4rem;
-  text-align: center;
-  font-size: 1rem;
-}
-
-    .site-title {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.site-title img {
-  height: 80px;
-}
-
-.ribbon-container {
-  width: 150px;
-  height: 150px;
-  position: fixed;
-  top: 0;
-  right: 0;
-  overflow: hidden;
-  z-index: 999;
-}
-
-.top-ribbon {
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 48px;
-
-  background: linear-gradient(135deg, #47ff50, #7fff6b);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  z-index: 9999;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  overflow: hidden;
-}
-
-/* Shared link style */
-.top-ribbon a {
-  position: absolute;
-  color: #0b130f;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 16px;
-  letter-spacing: 1px;
-  pointer-events: none;
-  opacity: 0;
-  transform: translateY(6px);
-  animation: rotateText 6s infinite;
-}
-
-/* Second item delayed */
-.top-ribbon .item-2 {
-  animation-delay: 3s;
-}
-
-/* Make link clickable only when visible */
-@keyframes rotateText {
-  0% {
-    opacity: 0;
-    transform: translateY(6px);
-    pointer-events: none;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Affiliates — Montana Wizard Podcast</title>
+<meta name="description" content="The Montana Wizard Podcast's affiliate partners — Mountain Wizard LLC and Montana Stream.">
+<link rel="canonical" href="https://montanawizard.com/affiliates.html">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  /* Affiliates page — page-specific styles */
+  .affiliates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
   }
-  10% {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  40% {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  50% {
-    opacity: 0;
-    transform: translateY(-6px);
-    pointer-events: none;
-  }
-  100% {
-    opacity: 0;
-    pointer-events: none;
-  }
-}
 
-/* Optional hover effect */
-.top-ribbon a:hover {
-  text-decoration: underline;
-}
+  .affiliate-card {
+    background: var(--color-snow);
+    border: 1px solid rgba(31, 45, 36, 0.1);
+    border-radius: 4px;
+    padding: 2.5rem 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
 
-  </style>
+  .affiliate-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--color-amber);
+    transition: width 0.3s ease;
+  }
+
+  .affiliate-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-deep);
+    border-color: var(--color-amber);
+  }
+
+  .affiliate-card:hover::before { width: 8px; }
+
+  .affiliate-mark {
+    width: 56px;
+    height: 56px;
+    background: var(--color-pine-deep);
+    color: var(--color-amber);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .affiliate-mark svg { width: 28px; height: 28px; }
+
+  .affiliate-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--color-pine-deep);
+    line-height: 1.2;
+  }
+
+  .affiliate-card .url {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-rust);
+    margin-bottom: 0.25rem;
+  }
+
+  .affiliate-card p {
+    font-size: 0.98rem;
+    color: var(--color-bark);
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .affiliate-card .visit-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-pine-deep);
+    border-bottom: 1px solid var(--color-amber);
+    padding-bottom: 4px;
+    align-self: flex-start;
+    transition: gap 0.2s ease, color 0.2s ease;
+  }
+  .affiliate-card .visit-link:hover {
+    gap: 0.85rem;
+    color: var(--color-amber);
+  }
+  .affiliate-card .visit-link svg { width: 14px; height: 14px; }
+</style>
 </head>
-<body>
-  <div id="site-header"></div>
+<body data-page="affiliates">
 
-  <main class="page">
-  <h1>Affiliates</h1>
-  <p>
-    <a href="https://www.mountainwizardllc.com/">
-      Mountain Wizard
-    </a>
-  </p>
-  <p>
-    <a href="https://montanastream.com/">
-      Montana Stream
-    </a>
-  </p>
+<div id="site-header"></div>
+
+<main>
+  <section class="content-hero">
+    <h1>Our Affiliates</h1>
+    <p>The companies and partners we ride with.</p>
+  </section>
+
+  <section class="section">
+    <div class="section-eyebrow">Partners</div>
+    <h2>Good <em>Company</em>.</h2>
+    <p class="section-intro">
+      A short list of folks we trust and recommend. Click through to learn
+      more about each.
+    </p>
+
+    <div class="affiliates-grid">
+      <article class="affiliate-card">
+        <div class="affiliate-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 20l5-9 4 6 4-12 5 15"/>
+          </svg>
+        </div>
+        <div class="url">mountainwizardllc.com</div>
+        <h3>Mountain Wizard LLC</h3>
+        <p>
+          The parent company behind the Montana Wizard Podcast. Mountain
+          Wizard handles the work behind the scenes that keeps the show
+          running.
+        </p>
+        <a href="https://www.mountainwizardllc.com/" class="visit-link" target="_blank" rel="noopener">
+          Visit Site
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </article>
+
+      <article class="affiliate-card">
+        <div class="affiliate-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12c2-3 5-3 7 0s5 3 7 0 5-3 6 0"/>
+            <path d="M2 17c2-3 5-3 7 0s5 3 7 0 5-3 6 0"/>
+            <path d="M2 7c2-3 5-3 7 0s5 3 7 0 5-3 6 0"/>
+          </svg>
+        </div>
+        <div class="url">montanastream.com</div>
+        <h3>Montana Stream</h3>
+        <p>
+          A sister project flowing right alongside the podcast. Keep an eye
+          on this one — there's more coming soon under the Big Sky.
+        </p>
+        <a href="https://montanastream.com/" class="visit-link" target="_blank" rel="noopener">
+          Visit Site
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <section class="subscribe-strip">
+    <div class="subscribe-inner">
+      <h2>Want to Partner With Us?</h2>
+      <p>If you've got a project that fits the Montana Wizard ethos, get in touch.</p>
+      <div class="platforms">
+        <a href="contact.html" class="platform-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Get in Touch
+        </a>
+      </div>
+    </div>
+  </section>
 </main>
 
-  <div id="site-footer"></div>
-  <script src="js/include.js"></script>
+<div id="site-footer"></div>
+
+<script src="js/chrome.js"></script>
 </body>
 </html>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <radialGradient id="sun-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e09b48"/>
+      <stop offset="70%" stop-color="#c4823a"/>
+      <stop offset="100%" stop-color="#9c4a2a"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Outer ring with text-able tick marks -->
+  <g class="emblem-rotate" style="transform-origin: 200px 200px;">
+    <circle cx="200" cy="200" r="180" fill="none" stroke="#c4823a" stroke-width="1" stroke-dasharray="2,8" opacity="0.5"/>
+    <circle cx="200" cy="200" r="165" fill="none" stroke="#c4823a" stroke-width="0.5" opacity="0.4"/>
+  </g>
+
+  <!-- Sun rays -->
+  <g stroke="#c4823a" stroke-width="2" stroke-linecap="round" opacity="0.7">
+    <line x1="200" y1="50" x2="200" y2="80"/>
+    <line x1="200" y1="320" x2="200" y2="350"/>
+    <line x1="50" y1="200" x2="80" y2="200"/>
+    <line x1="320" y1="200" x2="350" y2="200"/>
+    <line x1="94" y1="94" x2="115" y2="115"/>
+    <line x1="285" y1="285" x2="306" y2="306"/>
+    <line x1="306" y1="94" x2="285" y2="115"/>
+    <line x1="115" y1="285" x2="94" y2="306"/>
+  </g>
+
+  <!-- Sun disc -->
+  <circle cx="200" cy="200" r="120" fill="url(#sun-glow)" opacity="0.95"/>
+
+  <!-- Mountain silhouette inside -->
+  <g fill="#14201a">
+    <path d="M100,250 L140,180 L170,210 L210,140 L250,200 L290,170 L300,250 Z"/>
+    <path d="M120,250 L160,200 L195,225 L240,165 L275,210 L300,250 Z" fill="#0a1410" opacity="0.8"/>
+  </g>
+
+  <!-- Tiny stars -->
+  <g fill="#fbf8f1">
+    <circle cx="160" cy="135" r="1.5"/>
+    <circle cx="240" cy="120" r="1"/>
+    <circle cx="280" cy="155" r="1.5"/>
+    <circle cx="135" cy="170" r="1"/>
+  </g>
+
+  <!-- Crescent moon on the side -->
+  <g transform="translate(290, 130)">
+    <circle r="14" fill="#fbf8f1"/>
+    <circle r="14" cx="-5" fill="url(#sun-glow)"/>
+  </g>
+</svg>

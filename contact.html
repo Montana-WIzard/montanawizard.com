@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Montana Wizard Podcast</title>
+<meta name="description" content="Get in touch with the Montana Wizard Podcast. Questions, story tips, guest suggestions, or just to say hello.">
+<link rel="canonical" href="https://montanawizard.com/contact.html">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="contact">
+
+<div id="site-header"></div>
+
+<main>
+  <section class="content-hero">
+    <h1>Drop Us a Line</h1>
+    <p>Stories, questions, guest suggestions — we read everything.</p>
+  </section>
+
+  <section class="section">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Reach the Wizard</h3>
+        <p>
+          Whether you've got a story idea, a guest recommendation, or just
+          want to say hello, we'd love to hear from you. Email is the most
+          reliable way to reach us.
+        </p>
+
+        <div class="contact-detail">
+          <div class="contact-label">Email</div>
+          <div class="contact-value">
+            <a href="mailto:contact@montanawizard.com">contact@montanawizard.com</a>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-label">YouTube</div>
+          <div class="contact-value">
+            <a href="https://www.youtube.com/@MontanaWizard" target="_blank" rel="noopener">@MontanaWizard</a>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-label">Apple Podcasts</div>
+          <div class="contact-value">
+            <a href="https://podcasts.apple.com/us/podcast/montana-wizard-podcast/id1858617765" target="_blank" rel="noopener">Listen & Subscribe</a>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-label">Affiliate</div>
+          <div class="contact-value">
+            <a href="https://www.mountainwizardllc.com" target="_blank" rel="noopener">Mountain Wizard LLC</a>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm" onsubmit="handleContactSubmit(event)">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject">
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+          Send Message
+        </button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="js/chrome.js"></script>
+<script>
+function handleContactSubmit(e) {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  const subject = encodeURIComponent(data.get('subject') || 'Message from MontanaWizard.com');
+  const body = encodeURIComponent(
+    `From: ${data.get('name')} <${data.get('email')}>\n\n${data.get('message')}`
+  );
+  window.location.href = `mailto:contact@montanawizard.com?subject=${subject}&body=${body}`;
+}
+</script>
+</body>
+</html>

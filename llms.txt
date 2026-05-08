@@ -1,0 +1,37 @@
+# Montana Wizard Podcast
+
+> The Montana Wizard Podcast explores stories, ideas, and conversations from the wilds of Montana and beyond. Thoughtful discussion, offbeat humor, and a touch of wizardry from Big Sky Country.
+
+The Montana Wizard Podcast is an independent podcast hosted from Montana, USA. New episodes are released bi-weekly. The show focuses on life in rural Montana, regional culture, conversations with interesting people, and stories that often don't make it into mainstream coverage of the American West.
+
+## Episodes
+
+- [Intro – What is this Podcast](https://montanawizard.com/episodes.html): A first dispatch introducing the show, the host, and the editorial approach.
+- [Episode 1 – The Wizard Arrives](https://montanawizard.com/episodes.html): Pilot episode covering the origin of the show and a first long-form conversation.
+- [Episode 2 – Relaxing in Montana](https://montanawizard.com/episodes.html): On rest, slowness, and the geography of leisure in Big Sky Country.
+- [Episode 3 – Basketball Tournaments](https://montanawizard.com/episodes.html): The cultural significance of small-town high school basketball in Montana.
+- [Episode 4 – Montana Scam](https://montanawizard.com/episodes.html): A field guide to scams that have rolled through Montana, and the locals who saw them coming.
+
+## Pages
+
+- [Home](https://montanawizard.com/): Landing page with integrated audio player and latest episodes.
+- [Episodes](https://montanawizard.com/episodes.html): Full archive of every episode with embedded video and audio playback.
+- [About](https://montanawizard.com/about.html): Background on the show, its mission, and what to expect.
+- [Affiliates](https://montanawizard.com/affiliates.html): Affiliate partners — Mountain Wizard LLC and Montana Stream.
+- [Contact](https://montanawizard.com/contact.html): Email and platform links for getting in touch.
+
+## Listen & Subscribe
+
+- Apple Podcasts: https://podcasts.apple.com/us/podcast/montana-wizard-podcast/id1858617765
+- YouTube: https://www.youtube.com/@MontanaWizard
+- Direct streaming: available on the homepage audio player
+
+## Contact
+
+- Email: contact@montanawizard.com
+- Affiliated with: Mountain Wizard LLC (https://www.mountainwizardllc.com)
+
+## Optional
+
+- [robots.txt](https://montanawizard.com/robots.txt)
+- [sitemap.xml](https://montanawizard.com/sitemap.xml)

@@ -1,0 +1,9 @@
+# ads.txt for montanawizard.com
+# Authorized digital sellers for the Montana Wizard Podcast website.
+# Add lines below as you onboard ad partners. Format:
+# <DOMAIN>, <PUBLISHER ID>, <RELATIONSHIP>, <CERT AUTHORITY ID>
+#
+# Example for Google AdSense (uncomment and replace with your publisher ID):
+# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+#
+# No authorized sellers at this time.

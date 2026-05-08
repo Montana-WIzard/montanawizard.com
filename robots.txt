@@ -1,0 +1,31 @@
+# robots.txt for montanawizard.com
+
+User-agent: *
+Allow: /
+Disallow: /audio/
+
+# Sitemap location
+Sitemap: https://montanawizard.com/sitemap.xml
+
+# Friendly to major crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# AI training crawlers — explicitly allowed for discoverability
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /

@@ -1,373 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Montana Wizard Podcast</title>
-  <link rel="icon" href="../images/MontanaWizard.png" type="image/png" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Montana Wizard Podcast — Tales from Big Sky Country</title>
+<meta name="description" content="The Montana Wizard Podcast explores stories, ideas, and conversations from the wilds of Montana and beyond. Thoughtful talk, offbeat humor, and a touch of wizardry.">
+<meta name="keywords" content="Montana podcast, Big Sky podcast, Montana stories, Montana Wizard, rural podcast, Western podcast">
+<meta name="author" content="Montana Wizard Podcast">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background-color: #0f1a14;
-      color: #f4f4f4;
-      line-height: 1.6;
-    }
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Montana Wizard Podcast">
+<meta property="og:description" content="Tales, talk, and a little magic from Big Sky Country.">
+<meta property="og:url" content="https://montanawizard.com">
+<meta property="og:site_name" content="Montana Wizard Podcast">
 
-    header {
-      background: linear-gradient(135deg, #1e3d2b, #0f1a14);
-      padding: 3rem 1rem;
-      text-align: center;
-    }
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Montana Wizard Podcast">
+<meta name="twitter:description" content="Tales, talk, and a little magic from Big Sky Country.">
 
-    header h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
+<link rel="canonical" href="https://montanawizard.com/">
+<link rel="stylesheet" href="css/styles.css">
 
-    header p {
-      font-size: 1.2rem;
-      opacity: 0.9;
-    }
-
-    main {
-      max-width: 900px;
-      margin: auto;
-      padding: 2rem 1rem;
-    }
-
-    section {
-      margin-bottom: 2.5rem;
-    }
-
-    h2 {
-      border-left: 4px solid #4caf50;
-      padding-left: 0.75rem;
-      margin-bottom: 1rem;
-    }
-
-    .episodes li {
-      margin-bottom: 0.5rem;
-    }
-
-    a {
-      color: #4caf50;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      background-color: #0b130f;
-      font-size: 0.9rem;
-      opacity: 0.8;
-    }
-    .player {
-  background-color: #0b130f;
-  padding: 1.5rem;
-  border-radius: 8px;
+<!-- Structured data: Podcast -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "PodcastSeries",
+  "name": "Montana Wizard Podcast",
+  "description": "Tales, talk, and a little magic from Big Sky Country.",
+  "url": "https://montanawizard.com",
+  "webFeed": "https://montanawizard.com/feed.xml",
+  "author": { "@type": "Organization", "name": "Montana Wizard Podcast" }
 }
-
-.player video {
-  width: 100%;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-}
-
-.controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.controls button {
-  font-size: 1.5rem;
-  padding: 0.4rem 0.8rem;
-  background-color: #1e3d2b;
-  color: #f4f4f4;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.controls button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.controls input {
-  width: 80px;
-  padding: 0.4rem;
-  text-align: center;
-  font-size: 1rem;
-}
-
-    .site-title {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.site-title img {
-  height: 80px;
-}
-
-.ribbon-container {
-  width: 150px;
-  height: 150px;
-  position: fixed;
-  top: 0;
-  right: 0;
-  overflow: hidden;
-  z-index: 999;
-}
-
-.top-ribbon {
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 48px;
-
-  background: linear-gradient(135deg, #47ff50, #7fff6b);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  z-index: 9999;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  overflow: hidden;
-}
-
-/* Shared link style */
-.top-ribbon a {
-  position: absolute;
-  color: #0b130f;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 16px;
-  letter-spacing: 1px;
-  pointer-events: none;
-  opacity: 0;
-  transform: translateY(6px);
-  animation: rotateText 6s infinite;
-}
-
-/* Second item delayed */
-.top-ribbon .item-2 {
-  animation-delay: 3s;
-}
-
-/* Make link clickable only when visible */
-@keyframes rotateText {
-  0% {
-    opacity: 0;
-    transform: translateY(6px);
-    pointer-events: none;
-  }
-  10% {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  40% {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  50% {
-    opacity: 0;
-    transform: translateY(-6px);
-    pointer-events: none;
-  }
-  100% {
-    opacity: 0;
-    pointer-events: none;
-  }
-}
-
-/* Optional hover effect */
-.top-ribbon a:hover {
-  text-decoration: underline;
-}
-
-  </style>
+</script>
 </head>
+<body data-page="index">
 
-<body>
-  <body>
-  <div class="top-ribbon">
-    <a href="https://www.youtube.com/@MontanaWizard" class="item item-1">
-      NEW RELEASE
-    </a>
+<div id="site-header"></div>
 
-    <a href="https://www.mountainwizardllc.com" class="item item-2">
-      Mountain Wizard
-    </a>
-  </div>
-</body>
-``
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-container">
+      <div>
+        <div class="hero-eyebrow fade-up fade-up-1">Season One · New Episodes Bi-Weekly</div>
+        <h1 class="fade-up fade-up-2">Tales from <em>Big Sky</em> Country.</h1>
+        <p class="hero-tagline fade-up fade-up-3">
+          The Montana Wizard Podcast: thoughtful conversation, offbeat humor,
+          and a touch of wizardry — recorded somewhere between the foothills
+          and the front range.
+        </p>
+        <div class="hero-actions fade-up fade-up-4">
+          <a href="#listen" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Listen Now
+          </a>
+          <a href="episodes.html" class="btn btn-ghost">All Episodes</a>
+        </div>
+      </div>
 
+      <div class="hero-emblem fade-up fade-up-3" aria-hidden="true">
+        <img src="images/emblem.svg" alt="" class="hero-emblem-svg">
+      </div>
+    </div>
 
-  <header>
-    <h1 class="site-title">
-      <img src="images/MontanaWizard.png" alt="Montana Wizard Podcast Logo">
-      Montana Wizard Podcast
-    </h1>
-    <p>Tales, talk, and a little magic from Big Sky Country</p>
-  </header>
+    <svg class="mountain-silhouette" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="bm" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stop-color="#2a3d31"/>
+          <stop offset="100%" stop-color="#1f2d24"/>
+        </linearGradient>
+        <linearGradient id="fm" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stop-color="#14201a"/>
+          <stop offset="100%" stop-color="#0a1410"/>
+        </linearGradient>
+      </defs>
+      <path fill="url(#bm)" d="M0,200 L80,140 L160,180 L240,90 L340,160 L420,110 L520,170 L620,80 L720,150 L820,100 L920,170 L1020,120 L1120,180 L1220,90 L1320,150 L1440,110 L1440,320 L0,320 Z"/>
+      <path fill="url(#fm)" d="M0,260 L100,200 L180,240 L280,160 L380,220 L480,180 L580,230 L680,170 L780,220 L880,190 L980,240 L1080,180 L1180,230 L1280,170 L1380,220 L1440,200 L1440,320 L0,320 Z"/>
+    </svg>
+  </section>
 
-  <main>
+  <!-- LISTEN / PLAYER -->
+  <section class="section" id="listen">
+    <div class="section-eyebrow">Listen In</div>
+    <h2>Pull up a chair. <em>The fire's lit.</em></h2>
+    <p class="section-intro">
+      Stream the latest episode below — or browse the full catalog and pick
+      your own dispatch from the wilds.
+    </p>
 
-    <section>
-      <h2>About the Podcast</h2>
-      <p>
-        The Montana Wizard Podcast explores stories, ideas, and conversations
-        from the wilds of Montana and beyond. Expect thoughtful discussion,
-        offbeat humor, and a touch of wizardry.
-      </p>
-    </section>
+    <div id="podcastPlayer"></div>
+  </section>
 
-    <section>
-      <h2>Latest Episodes</h2>
-      <ul class="episodes">
-        <li>Intro – What is this Podcast</li>
-        <li>Episode 1 – The Wizard Arrives</li>
-        <li>Episode 2 - Relaxing in Montana</li>
-        <li>Episode 3 - Basketball Tournaments</li>
-        <li>Episode 4 - Montana Scam</li>
-      </ul>
-    </section>
+  <!-- LATEST EPISODES -->
+  <section class="section">
+    <div class="section-eyebrow">From the Trail</div>
+    <h2>Latest <em>Episodes</em></h2>
+    <p class="section-intro">
+      Five conversations in, and just getting started. Watch the video
+      versions on YouTube, or listen on the player above.
+    </p>
 
-    <section>
-      <h2>Watch the Podcast</h2>
+    <div class="episodes-grid" id="episodesGrid"></div>
+  </section>
 
-      <div class="player">
-        <iframe
-          id="videoPlayer"
-          width="100%"
-          height="450"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-
-
-
-
-
-
-      <div class="controls">
-        <button id="prevBtn">◀</button>
-
-        <label>
-          Episode
-          <input type="number" id="episodeInput" value="0" min="0">
-        </label>
-
-        <button id="nextBtn">▶</button>
+  <!-- SUBSCRIBE -->
+  <section class="subscribe-strip">
+    <div class="subscribe-inner">
+      <h2>Never Miss a Dispatch</h2>
+      <p>Subscribe wherever you listen — new episodes drop bi-weekly.</p>
+      <div class="platforms">
+        <a href="https://podcasts.apple.com/us/podcast/montana-wizard-podcast/id1858617765" class="platform-btn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 6a3 3 0 1 1-3 3 3 3 0 0 1 3-3zm0 13a8 8 0 0 1-6.4-3.2c0-1.7 4.3-2.6 6.4-2.6s6.4.9 6.4 2.6A8 8 0 0 1 12 21z"/></svg>
+          Apple Podcasts
+        </a>
+        <a href="https://www.youtube.com/@MontanaWizard" class="platform-btn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.4a3 3 0 0 0-2-2C19 5 12 5 12 5s-7 0-9 .4a3 3 0 0 0-2 2A31 31 0 0 0 .5 12 31 31 0 0 0 1 16.6a3 3 0 0 0 2 2C5 19 12 19 12 19s7 0 9-.4a3 3 0 0 0 2-2 31 31 0 0 0 .5-4.6 31 31 0 0 0-.5-4.6zM10 15.5v-7l6 3.5z"/></svg>
+          YouTube
+        </a>
       </div>
     </div>
   </section>
+</main>
 
+<div id="site-footer"></div>
 
-    <section>
-      <h2>Listen & Subscribe</h2>
-      <p>
-        Find the podcast on:
-        <br />
-        <a href="https://podcasts.apple.com/us/podcast/montana-wizard-podcast/id1858617765">Apple Podcasts</a> ·
-        <a href="https://www.youtube.com/@MontanaWizard">YouTube</a>
-      </p>
-    </section>
-
-    <section>
-      <h2>Contact</h2>
-      <p>
-        Questions, stories, or spell suggestions?<br />
-        Email: <a href="mailto:contact@montanawizard.com">contact@montanawizard.com</a>
-      </p>
-    </section>
-
-  </main>
-
-  <footer>
-    © 2026 Montana Wizard Podcast · All Rights Reserved
-  </footer>
-
-
-  <script>
-  const videoPlayer = document.getElementById("videoPlayer");
-
-  const episodeInput = document.getElementById("episodeInput");
-  const prevBtn = document.getElementById("prevBtn");
-  const nextBtn = document.getElementById("nextBtn");
-
-  let videos = [];
-  let currentEpisode = 0;
-
-  function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
-
-  function loadEpisode(num) {
-    if (num < 0) num = 0;
-    if (num >= videos.length) num = videos.length - 1;
-
-    currentEpisode = num;
-    episodeInput.value = currentEpisode;
-
-
-    const videoId = videos[currentEpisode];
-
-    videoPlayer.src = `https://www.youtube.com/embed/${videoId}?rel=0`;
-
-    prevBtn.disabled = currentEpisode === 0;
-    nextBtn.disabled = currentEpisode === videos.length - 1;
-  }
-
-  prevBtn.addEventListener("click", () => {
-    loadEpisode(currentEpisode - 1);
-  });
-
-  nextBtn.addEventListener("click", () => {
-    loadEpisode(currentEpisode + 1);
-  });
-
-  episodeInput.addEventListener("change", () => {
-    loadEpisode(parseInt(episodeInput.value, 10));
-  });
-
-  // Load episodes from txt file
-  fetch("episodes.txt")
-    .then(res => res.text())
-    .then(text => {
-      videos = text
-        .split("\n")
-        .map(line => line.trim())
-        .filter(Boolean);
-
-      shuffle(videos);
-
-      episodeInput.max = videos.length - 1;
-      loadEpisode(0);
-    })
-    .catch(err => {
-      console.error("Failed to load episodes.txt", err);
-    });
-</script>
-
-
+<script src="js/chrome.js"></script>
+<script src="js/episodes.js"></script>
 </body>
 </html>
