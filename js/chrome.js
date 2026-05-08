@@ -7,12 +7,7 @@ const HEADER_HTML = `
 <header class="site-header">
   <div class="nav-container">
     <a href="index.html" class="brand" aria-label="Montana Wizard Podcast — Home">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 21l4-7 4 5 3-9 4 11h3"/>
-          <circle cx="18" cy="5" r="2" fill="currentColor"/>
-        </svg>
-      </span>
+      <img src="images/favicon.svg" alt="" class="brand-mark-img" aria-hidden="true">
       <span class="brand-text">
         Montana Wizard
         <small>Podcast · Est. 2025</small>
