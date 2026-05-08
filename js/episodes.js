@@ -1,54 +1,81 @@
 /* ==========================================================================
-   Episode Data — Single source of truth
+   Montana Wizard Podcast — Episode Loader & Audio Player
+   --------------------------------------------------------------------------
+   Episode list is loaded from /audio/episodes.txt at runtime.
+   Manifest format (one entry per line):
+       filename.ext - "Episode Title"
+   Lines starting with # are treated as comments and ignored.
    ========================================================================== */
 
-const EPISODES = [
-  {
-    num: '00',
-    title: 'Intro — What is this Podcast',
-    description: 'A first dispatch from the wizard\'s desk. What you can expect, who\'s behind the mic, and why we\'re telling these stories from the foothills.',
-    youtubeId: '', // Replace with real YouTube IDs
-    audioUrl: '',  // Optional: drop MP3s into /audio and reference here
-    duration: '12:30',
-    date: '2025-09-01'
-  },
-  {
-    num: '01',
-    title: 'The Wizard Arrives',
-    description: 'The pilot episode. The origin story behind Montana Wizard, the gear, and the first real conversation under the Big Sky.',
-    youtubeId: '',
-    audioUrl: '',
-    duration: '34:22',
-    date: '2025-09-15'
-  },
-  {
-    num: '02',
-    title: 'Relaxing in Montana',
-    description: 'On slowing down, the geography of rest, and what a Tuesday afternoon looks like when the mountains are doing the talking.',
-    youtubeId: '',
-    audioUrl: '',
-    duration: '41:08',
-    date: '2025-10-01'
-  },
-  {
-    num: '03',
-    title: 'Basketball Tournaments',
-    description: 'Small-town gymnasiums, long bus rides, and the social fabric that gets stitched together every March in Montana.',
-    youtubeId: '',
-    audioUrl: '',
-    duration: '38:45',
-    date: '2025-10-20'
-  },
-  {
-    num: '04',
-    title: 'Montana Scam',
-    description: 'A field guide to spotting the schemes that rolled into Big Sky Country — and the locals who saw them coming a mile off.',
-    youtubeId: '',
-    audioUrl: '',
-    duration: '45:17',
-    date: '2025-11-10'
+const MANIFEST_URL = 'audio/episodes.txt';
+
+/* Optional descriptions keyed by episode number ("00", "01", etc.).
+   Add/edit freely — entries without a description fall back to a default. */
+const EPISODE_DESCRIPTIONS = {
+  '00': 'A first dispatch from the wizard\'s desk. What you can expect, who\'s behind the mic, and why we\'re telling these stories from the foothills.',
+  '01': 'The pilot episode. The origin story behind Montana Wizard, the gear, and the first real conversation under the Big Sky.',
+  '02': 'On slowing down, the geography of rest, and what a Tuesday afternoon looks like when the mountains are doing the talking.',
+  '03': 'Small-town gymnasiums, long bus rides, and the social fabric that gets stitched together every March in Montana.',
+  '04': 'A field guide to spotting the schemes that rolled into Big Sky Country — and the locals who saw them coming a mile off.'
+};
+
+let EPISODES = [];
+
+/* ==========================================================================
+   Manifest parsing
+   ========================================================================== */
+
+function parseManifest(text) {
+  const episodes = [];
+  const lines = text.split(/\r?\n/);
+
+  for (const raw of lines) {
+    const line = raw.trim();
+    if (!line || line.startsWith('#')) continue;
+
+    // Match:  filename - "Title"   (tolerates straight or curly quotes,
+    // and an em-dash / en-dash separator)
+    const match = line.match(/^(\S+)\s*[-–—]\s*["“]?([^"”]+)["”]?\s*$/);
+    if (!match) continue;
+
+    const filename = match[1].trim();
+    const title = match[2].trim();
+
+    // Skip the header row if the file uses one
+    if (filename.toLowerCase() === 'file') continue;
+
+    // Pull the episode number out of the filename if present (ep00, ep01...)
+    const numMatch = filename.match(/ep(\d+)/i);
+    const num = numMatch
+      ? numMatch[1].padStart(2, '0')
+      : String(episodes.length).padStart(2, '0');
+
+    episodes.push({
+      num,
+      title,
+      description: EPISODE_DESCRIPTIONS[num] || 'Stream the episode below or watch the video version on YouTube.',
+      audioUrl: `audio/${filename}`,
+      duration: '—:—'
+    });
   }
-];
+
+  return episodes;
+}
+
+async function loadEpisodes() {
+  try {
+    const res = await fetch(MANIFEST_URL, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const text = await res.text();
+    EPISODES = parseManifest(text);
+    if (EPISODES.length === 0) {
+      console.warn('No episodes parsed from manifest. Check audio/episodes.txt formatting.');
+    }
+  } catch (err) {
+    console.warn('Could not load audio/episodes.txt — using empty list.', err);
+    EPISODES = [];
+  }
+}
 
 /* ==========================================================================
    Audio Player
@@ -58,17 +85,36 @@ class PodcastPlayer {
   constructor(rootEl) {
     this.root = rootEl;
     if (!this.root) return;
-
     this.currentIndex = 0;
     this.audio = new Audio();
+    this.audio.preload = 'metadata';
     this.isPlaying = false;
-
     this.render();
     this.bindEvents();
-    this.loadEpisode(0);
+    this.preloadDurations();
+    if (EPISODES.length) this.loadEpisode(0);
   }
 
   render() {
+    if (EPISODES.length === 0) {
+      this.root.innerHTML = `
+        <div class="player-wrap">
+          <div class="player-header">
+            <div>
+              <div class="player-now">No Episodes Yet</div>
+              <div class="player-title">Drop audio files into the /audio/ folder</div>
+            </div>
+          </div>
+          <p style="color: var(--color-parchment-warm); margin-top: 1rem; font-size: 0.95rem;">
+            Add a line to <code>audio/episodes.txt</code> for each episode in the format:
+            <br><br>
+            <code style="font-family: var(--font-mono); color: var(--color-amber);">ep01.m4a - "The Wizard Arrives"</code>
+          </p>
+        </div>
+      `;
+      return;
+    }
+
     this.root.innerHTML = `
       <div class="player-wrap">
         <div class="player-header">
@@ -107,7 +153,7 @@ class PodcastPlayer {
               <li class="episode-item ${i === 0 ? 'active' : ''}" data-index="${i}">
                 <span class="episode-num">${ep.num}</span>
                 <span class="episode-name">${ep.title}</span>
-                <span class="episode-time">${ep.duration}</span>
+                <span class="episode-time" data-duration-for="${i}">${ep.duration}</span>
               </li>
             `).join('')}
           </ul>
@@ -117,6 +163,8 @@ class PodcastPlayer {
   }
 
   bindEvents() {
+    if (EPISODES.length === 0) return;
+
     document.getElementById('playBtn').addEventListener('click', () => this.togglePlay());
     document.getElementById('prevBtn').addEventListener('click', () => this.prev());
     document.getElementById('nextBtn').addEventListener('click', () => this.next());
@@ -138,9 +186,45 @@ class PodcastPlayer {
     this.audio.addEventListener('timeupdate', () => this.updateProgress());
     this.audio.addEventListener('ended', () => this.next());
     this.audio.addEventListener('loadedmetadata', () => {
-      const dur = this.formatTime(this.audio.duration);
+      const dur = formatTime(this.audio.duration);
       document.getElementById('duration').textContent = dur;
+      EPISODES[this.currentIndex].duration = dur;
     });
+    this.audio.addEventListener('error', () => {
+      document.getElementById('duration').textContent = 'unavailable';
+    });
+  }
+
+  /* Pre-fetch metadata for every track so durations show in the list
+     without needing to click each one. Sequential to be polite. */
+  preloadDurations() {
+    let i = 0;
+    const next = () => {
+      if (i >= EPISODES.length) return;
+      const ep = EPISODES[i];
+      const probe = new Audio();
+      probe.preload = 'metadata';
+      probe.src = ep.audioUrl;
+      const idx = i;
+      probe.addEventListener('loadedmetadata', () => {
+        const dur = formatTime(probe.duration);
+        ep.duration = dur;
+        const cell = document.querySelector(`[data-duration-for="${idx}"]`);
+        if (cell) cell.textContent = dur;
+        const cardCell = document.querySelector(`[data-card-duration="${ep.num}"]`);
+        if (cardCell) cardCell.textContent = dur;
+        if (idx === this.currentIndex) {
+          document.getElementById('duration').textContent = dur;
+        }
+      }, { once: true });
+      probe.addEventListener('error', () => {
+        const cell = document.querySelector(`[data-duration-for="${idx}"]`);
+        if (cell) cell.textContent = '—';
+      }, { once: true });
+      i++;
+      setTimeout(next, 150);
+    };
+    next();
   }
 
   loadEpisode(index) {
@@ -156,32 +240,22 @@ class PodcastPlayer {
       item.classList.toggle('active', i === index);
     });
 
-    if (ep.audioUrl) {
-      this.audio.src = ep.audioUrl;
-    } else {
-      this.audio.src = '';
-    }
+    this.audio.src = ep.audioUrl;
   }
 
   togglePlay() {
-    if (!this.audio.src) {
-      // No audio file — direct viewer to YouTube
-      const ep = EPISODES[this.currentIndex];
-      alert(`Audio file not yet uploaded for "${ep.title}".\n\nDrop your MP3 into the /audio folder and update audioUrl in js/episodes.js.\n\nFor now, watch on YouTube: youtube.com/@MontanaWizard`);
-      return;
-    }
     this.isPlaying ? this.pause() : this.play();
   }
 
   play() {
-    if (!this.audio.src) {
-      this.togglePlay();
-      return;
+    const playPromise = this.audio.play();
+    if (playPromise && playPromise.catch) {
+      playPromise.catch(() => {
+        alert('Could not play this episode. Check that the audio file exists in /audio/ and the filename in audio/episodes.txt matches exactly.');
+      });
     }
-    this.audio.play();
     this.isPlaying = true;
-    document.getElementById('playIcon').innerHTML =
-      '<path d="M6 5h4v14H6zm8 0h4v14h-4z"/>';
+    document.getElementById('playIcon').innerHTML = '<path d="M6 5h4v14H6zm8 0h4v14h-4z"/>';
   }
 
   pause() {
@@ -206,47 +280,61 @@ class PodcastPlayer {
     if (!this.audio.duration) return;
     const pct = (this.audio.currentTime / this.audio.duration) * 100;
     document.getElementById('progressFill').style.width = pct + '%';
-    document.getElementById('currentTime').textContent = this.formatTime(this.audio.currentTime);
-  }
-
-  formatTime(s) {
-    if (!s || isNaN(s)) return '0:00';
-    const m = Math.floor(s / 60);
-    const sec = Math.floor(s % 60);
-    return `${m}:${sec.toString().padStart(2, '0')}`;
+    document.getElementById('currentTime').textContent = formatTime(this.audio.currentTime);
   }
 }
 
+function formatTime(s) {
+  if (!s || isNaN(s) || !isFinite(s)) return '—:—';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return `${m}:${sec.toString().padStart(2, '0')}`;
+}
+
 /* ==========================================================================
-   Episodes Grid Renderer
+   Episodes Grid (cards on /index and /episodes pages)
    ========================================================================== */
 
 function renderEpisodesGrid(rootSelector) {
   const root = document.querySelector(rootSelector);
   if (!root) return;
 
+  if (EPISODES.length === 0) {
+    root.innerHTML = `
+      <p style="color: var(--color-bark); font-style: italic; grid-column: 1 / -1;">
+        No episodes loaded. Add entries to <code>audio/episodes.txt</code>.
+      </p>
+    `;
+    return;
+  }
+
   root.innerHTML = EPISODES.slice().reverse().map(ep => `
     <article class="episode-card">
       <div class="episode-card-media">
-        ${ep.youtubeId
-          ? `<iframe src="https://www.youtube.com/embed/${ep.youtubeId}" title="${ep.title}" allowfullscreen loading="lazy"></iframe>`
-          : `<a href="https://www.youtube.com/@MontanaWizard" target="_blank" rel="noopener" style="display:flex;width:100%;height:100%;align-items:center;justify-content:center;color:var(--color-amber);background:linear-gradient(135deg,var(--color-pine-deep),var(--color-pine));font-family:var(--font-display);font-size:1.4rem;text-align:center;padding:1rem;">▸ Watch on YouTube</a>`
-        }
+        <div style="display:flex;width:100%;height:100%;align-items:center;justify-content:center;color:var(--color-amber);background:linear-gradient(135deg,var(--color-pine-deep),var(--color-pine));font-family:var(--font-display);font-size:1.4rem;text-align:center;padding:1rem;flex-direction:column;gap:0.5rem;">
+          <span style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.3em;opacity:0.7;text-transform:uppercase;">Episode ${ep.num}</span>
+          <span>${ep.title}</span>
+        </div>
       </div>
       <div class="episode-card-body">
-        <div class="episode-card-meta">Episode ${ep.num} · ${ep.duration}</div>
+        <div class="episode-card-meta">Episode ${ep.num} · <span data-card-duration="${ep.num}">${ep.duration}</span></div>
         <h3>${ep.title}</h3>
         <p>${ep.description}</p>
+        <p style="margin-top:1rem;">
+          <a href="index.html#listen" style="font-family:var(--font-mono);font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--color-rust);border-bottom:1px solid var(--color-amber);padding-bottom:2px;">▸ Listen on Player</a>
+        </p>
       </div>
     </article>
   `).join('');
 }
 
 /* ==========================================================================
-   Init on DOM ready
+   Init
    ========================================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadEpisodes();
+
   if (document.getElementById('podcastPlayer')) {
     new PodcastPlayer(document.getElementById('podcastPlayer'));
   }
