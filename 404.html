@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon.svg">
+<link rel="apple-touch-icon" href="images/favicon.svg">
+<meta name="theme-color" content="#14201a">
+<title>Lost on the Trail — Montana Wizard Podcast</title>
+<meta name="description" content="404 — this page wandered off. Come warm up by the fire and head back to the homepage.">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  /* ==========================================================================
+     404 page — full bleed campfire scene
+     ========================================================================== */
+
+  body {
+    background: linear-gradient(180deg, #050a08 0%, #0d1612 50%, #14201a 100%);
+    overflow-x: hidden;
+  }
+
+  body::before { display: none; } /* drop the paper texture for this page */
+
+  .scene {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+    color: var(--color-parchment);
+  }
+
+  /* Starfield */
+  .stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--color-parchment);
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle 4s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 0.9; }
+  }
+
+  /* Distant mountain silhouette */
+  .horizon {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 200px;
+    z-index: 1;
+    opacity: 0.7;
+  }
+
+  /* Campfire wrapper */
+  .campfire {
+    position: relative;
+    width: 280px;
+    height: 320px;
+    z-index: 5;
+    margin-bottom: 2rem;
+  }
+
+  /* Glow ring beneath everything */
+  .glow {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle,
+      rgba(224, 155, 72, 0.4) 0%,
+      rgba(196, 130, 58, 0.2) 30%,
+      rgba(156, 74, 42, 0.1) 50%,
+      transparent 70%);
+    border-radius: 50%;
+    animation: glow-pulse 3s ease-in-out infinite;
+    z-index: 2;
+    pointer-events: none;
+  }
+  @keyframes glow-pulse {
+    0%, 100% { opacity: 0.8; transform: translateX(-50%) scale(1); }
+    50% { opacity: 1; transform: translateX(-50%) scale(1.08); }
+  }
+
+  /* Flame stack — three flames layered, each on its own flicker cycle */
+  .flames {
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 180px;
+    z-index: 6;
+  }
+
+  .flame {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform-origin: 50% 100%;
+    border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+    filter: blur(2px);
+    mix-blend-mode: screen;
+  }
+
+  .flame-outer {
+    width: 100px;
+    height: 180px;
+    margin-left: -50px;
+    background: radial-gradient(ellipse at 50% 100%,
+      #c4823a 0%,
+      #9c4a2a 40%,
+      transparent 75%);
+    animation: flicker-outer 1.4s ease-in-out infinite;
+    opacity: 0.9;
+  }
+
+  .flame-mid {
+    width: 70px;
+    height: 140px;
+    margin-left: -35px;
+    background: radial-gradient(ellipse at 50% 100%,
+      #e09b48 0%,
+      #c4823a 50%,
+      transparent 80%);
+    animation: flicker-mid 0.9s ease-in-out infinite;
+  }
+
+  .flame-inner {
+    width: 38px;
+    height: 90px;
+    margin-left: -19px;
+    background: radial-gradient(ellipse at 50% 100%,
+      #fbf8f1 0%,
+      #f4ead5 30%,
+      #e09b48 70%,
+      transparent 95%);
+    animation: flicker-inner 0.6s ease-in-out infinite;
+  }
+
+  @keyframes flicker-outer {
+    0%, 100% { transform: translateX(-50%) scale(1, 1) skewX(0deg); }
+    25%      { transform: translateX(-50%) scale(0.95, 1.05) skewX(-2deg); }
+    50%      { transform: translateX(-50%) scale(1.05, 0.95) skewX(1deg); }
+    75%      { transform: translateX(-50%) scale(0.97, 1.03) skewX(-1deg); }
+  }
+  @keyframes flicker-mid {
+    0%, 100% { transform: translateX(-50%) scale(1, 1) skewX(2deg); }
+    33%      { transform: translateX(-50%) scale(0.9, 1.1) skewX(-3deg); }
+    66%      { transform: translateX(-50%) scale(1.1, 0.92) skewX(2deg); }
+  }
+  @keyframes flicker-inner {
+    0%, 100% { transform: translateX(-50%) scale(1, 1); opacity: 0.95; }
+    50%      { transform: translateX(-50%) scale(0.85, 1.15); opacity: 1; }
+  }
+
+  /* Embers floating up */
+  .embers {
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 300px;
+    pointer-events: none;
+    z-index: 7;
+  }
+
+  .ember {
+    position: absolute;
+    bottom: 30px;
+    width: 4px;
+    height: 4px;
+    background: #e09b48;
+    border-radius: 50%;
+    box-shadow: 0 0 6px 2px rgba(224, 155, 72, 0.6);
+    opacity: 0;
+    animation: rise 4s ease-out infinite;
+  }
+  .ember:nth-child(1) { left: 30%; animation-delay: 0s; }
+  .ember:nth-child(2) { left: 50%; animation-delay: 0.7s; }
+  .ember:nth-child(3) { left: 70%; animation-delay: 1.3s; }
+  .ember:nth-child(4) { left: 40%; animation-delay: 2.1s; }
+  .ember:nth-child(5) { left: 60%; animation-delay: 2.8s; }
+  .ember:nth-child(6) { left: 35%; animation-delay: 3.5s; }
+  .ember:nth-child(7) { left: 55%; animation-delay: 1.7s; }
+
+  @keyframes rise {
+    0%   { opacity: 0; transform: translate(0, 0) scale(1); }
+    15%  { opacity: 1; }
+    100% { opacity: 0; transform: translate(var(--drift, 20px), -260px) scale(0.3); }
+  }
+  .ember:nth-child(odd)  { --drift: -25px; }
+  .ember:nth-child(even) { --drift: 30px; }
+
+  /* Logs — crossed underneath the flames */
+  .logs {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    height: 90px;
+    z-index: 8;
+  }
+
+  .log {
+    position: absolute;
+    background: linear-gradient(180deg, #5d4332 0%, #3d2f24 50%, #2a1f17 100%);
+    border-radius: 14px;
+    box-shadow:
+      0 4px 12px rgba(0, 0, 0, 0.6),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+      inset 0 2px 4px rgba(140, 100, 70, 0.3);
+  }
+
+  .log-1 {
+    width: 200px; height: 22px;
+    bottom: 20px; left: 10px;
+    transform: rotate(-8deg);
+  }
+  .log-2 {
+    width: 200px; height: 22px;
+    bottom: 26px; left: 10px;
+    transform: rotate(7deg);
+  }
+  .log-3 {
+    width: 180px; height: 20px;
+    bottom: 0; left: 20px;
+    transform: rotate(-3deg);
+  }
+
+  /* Wood-end glow on log tips facing the fire */
+  .log::before {
+    content: '';
+    position: absolute;
+    top: 4px; bottom: 4px;
+    left: 45%; right: 45%;
+    background: radial-gradient(ellipse,
+      rgba(224, 155, 72, 0.7) 0%,
+      rgba(196, 130, 58, 0.3) 60%,
+      transparent 100%);
+    border-radius: 50%;
+    filter: blur(3px);
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  /* Stone ring around the base */
+  .stones {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    height: 60px;
+    z-index: 4;
+  }
+
+  .stone {
+    position: absolute;
+    bottom: 0;
+    background: linear-gradient(180deg, #5a5853 0%, #3d3b37 60%, #2a2826 100%);
+    border-radius: 50%;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+  }
+  .stone-1 { left: 10px;  width: 48px; height: 30px; }
+  .stone-2 { left: 60px;  width: 38px; height: 24px; }
+  .stone-3 { left: 100px; width: 50px; height: 32px; }
+  .stone-4 { left: 155px; width: 40px; height: 26px; }
+  .stone-5 { left: 200px; width: 45px; height: 28px; }
+  .stone-6 { left: 245px; width: 30px; height: 22px; }
+
+  /* Ground shadow */
+  .ground-shadow {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
+    height: 30px;
+    background: radial-gradient(ellipse at center,
+      rgba(0, 0, 0, 0.6) 0%,
+      transparent 70%);
+    border-radius: 50%;
+    z-index: 3;
+  }
+
+  /* Text */
+  .scene-text {
+    text-align: center;
+    z-index: 10;
+    position: relative;
+    max-width: 540px;
+  }
+
+  .scene-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--color-amber);
+    margin-bottom: 1rem;
+    display: inline-block;
+  }
+
+  .scene-text h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1.05;
+    color: var(--color-parchment);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+  .scene-text h1 em {
+    font-style: italic;
+    color: var(--color-amber);
+  }
+
+  .scene-text p {
+    font-size: 1.1rem;
+    color: var(--color-parchment-warm);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  .scene-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .scene .btn-primary {
+    background: var(--color-amber);
+    color: var(--color-pine-deep);
+  }
+  .scene .btn-primary:hover {
+    background: var(--color-amber-bright);
+  }
+  .scene .btn-ghost {
+    border-color: var(--color-parchment-warm);
+    color: var(--color-parchment-warm);
+  }
+  .scene .btn-ghost:hover {
+    background: var(--color-parchment);
+    color: var(--color-pine-deep);
+    border-color: var(--color-parchment);
+  }
+
+  @media (max-width: 600px) {
+    .campfire { transform: scale(0.85); margin-bottom: 1rem; }
+    .scene { padding-top: 1rem; }
+  }
+</style>
+</head>
+<body data-page="404">
+
+<div id="site-header"></div>
+
+<main>
+  <section class="scene">
+    <!-- Stars -->
+    <div class="stars" aria-hidden="true">
+      <div class="star" style="top: 8%; left: 12%; animation-delay: 0s;"></div>
+      <div class="star" style="top: 15%; left: 28%; animation-delay: 1.2s;"></div>
+      <div class="star" style="top: 6%; left: 45%; animation-delay: 2.5s;"></div>
+      <div class="star" style="top: 18%; left: 62%; animation-delay: 0.8s;"></div>
+      <div class="star" style="top: 10%; left: 78%; animation-delay: 3.1s;"></div>
+      <div class="star" style="top: 22%; left: 88%; animation-delay: 1.7s;"></div>
+      <div class="star" style="top: 4%; left: 35%; animation-delay: 2.2s;"></div>
+      <div class="star" style="top: 12%; left: 70%; animation-delay: 0.4s;"></div>
+      <div class="star" style="top: 25%; left: 18%; animation-delay: 3.6s;"></div>
+      <div class="star" style="top: 7%; left: 92%; animation-delay: 1.9s;"></div>
+    </div>
+
+    <!-- Distant mountains -->
+    <svg class="horizon" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="#0a1410" d="M0,120 L120,80 L220,110 L340,40 L460,90 L580,60 L700,100 L820,50 L940,95 L1060,70 L1180,110 L1300,60 L1440,90 L1440,200 L0,200 Z"/>
+      <path fill="#050a08" d="M0,160 L100,130 L200,150 L320,110 L440,140 L560,120 L680,150 L800,115 L920,145 L1040,125 L1180,150 L1300,120 L1440,140 L1440,200 L0,200 Z"/>
+    </svg>
+
+    <!-- Campfire -->
+    <div class="campfire" aria-hidden="true">
+      <div class="glow"></div>
+
+      <div class="flames">
+        <div class="flame flame-outer"></div>
+        <div class="flame flame-mid"></div>
+        <div class="flame flame-inner"></div>
+      </div>
+
+      <div class="embers">
+        <div class="ember"></div>
+        <div class="ember"></div>
+        <div class="ember"></div>
+        <div class="ember"></div>
+        <div class="ember"></div>
+        <div class="ember"></div>
+        <div class="ember"></div>
+      </div>
+
+      <div class="logs">
+        <div class="log log-1"></div>
+        <div class="log log-2"></div>
+        <div class="log log-3"></div>
+      </div>
+
+      <div class="ground-shadow"></div>
+
+      <div class="stones">
+        <div class="stone stone-1"></div>
+        <div class="stone stone-2"></div>
+        <div class="stone stone-3"></div>
+        <div class="stone stone-4"></div>
+        <div class="stone stone-5"></div>
+        <div class="stone stone-6"></div>
+      </div>
+    </div>
+
+    <div class="scene-text">
+      <span class="scene-eyebrow">Error 404</span>
+      <h1>Lost on the <em>Trail</em>.</h1>
+      <p>
+        Looks like you've wandered off the marked path. Come warm up by the
+        fire — then head back to the homepage and try again.
+      </p>
+      <div class="scene-actions">
+        <a href="index.html" class="btn btn-primary">Back to Home</a>
+        <a href="episodes.html" class="btn btn-ghost">Browse Episodes</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="js/chrome.js"></script>
+</body>
+</html>
