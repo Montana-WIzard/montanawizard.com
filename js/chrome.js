@@ -92,7 +92,7 @@ const FOOTER_HTML = `
       <h4>Connect</h4>
       <ul>
         <li><a href="mailto:contact@montanawizard.com">contact@montanawizard.com</a></li>
-        <li><a href="https://www.mountainwizardllc.com" target="_blank" rel="noopener">Mountain Wizard LLC</a></li>
+        <li><a href="https://www.montanawizard.com" target="_blank" rel="noopener">Montana Wizard</a></li>
       </ul>
     </div>
   </div>
